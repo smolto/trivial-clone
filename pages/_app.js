@@ -1,4 +1,6 @@
-import '../styles/globals.css'
+import '../styles/global/globals.css'
+import '../styles/global/button.css'
+import '../styles/global/input.css'
 import { UserProvider } from '@auth0/nextjs-auth0'
 
 function MyApp ({ Component, pageProps }) {
