@@ -1,0 +1,31 @@
+.toolbar {
+  position: sticky;
+  width: 100%;
+  padding: 0 24px;
+  box-shadow: 0 2px 2px -2px gray;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  background-color: #fff;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info img {
+  width: 50px;
+  border-radius: 100px;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-button img{
+  width: 30px;
+}
