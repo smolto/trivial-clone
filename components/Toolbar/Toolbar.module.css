@@ -1,7 +1,7 @@
 .toolbar {
   position: sticky;
   width: 100%;
-  padding: 0 24px;
+  padding: 7px 24px;
   box-shadow: 0 2px 2px -2px gray;
   display: flex;
   justify-content: space-between;
@@ -16,7 +16,7 @@
 }
 
 .user-info img {
-  width: 50px;
+  height: 30px;
   border-radius: 100px;
 }
 

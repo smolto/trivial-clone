@@ -1,3 +1,5 @@
+
+
 .btn {
   border-radius: 0.2rem;
   font-weight: 500;
@@ -22,4 +24,10 @@
 
 .btn_primary:hover {
   opacity: 0.8;
+  color: var(--secondary-color);
+}
+
+.btn_primary:focus {
+  opacity: 0.8;
+  box-shadow: none;
 }
