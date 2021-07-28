@@ -10,6 +10,14 @@ import { Layout } from '../components/Layout/Layout'
 import { Toolbar } from '../components/Toolbar/Toolbar'
 import { Alert } from '../components/Alert/Alert'
 
+import { useConfig } from '../hooks/useConfig'
+
+import {
+  getUserByEmail,
+  createUser,
+  updateUser
+} from './../services/UserService'
+
 export default function Login ({ userLoggedIn, setUserLoggedIn }) {
   const { user } = useUser()
   const router = useRouter()
@@ -20,6 +28,7 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
   const [showAlert, setShowAlert] = useState(false)
   const [alertMsg, setAlertMsg] = useState('')
   const [typeAlert, setTypeAlert] = useState('')
+  const publicRuntimeConfig = useConfig()
 
   const resetState = () => {
     setUserEmail('')
@@ -66,108 +75,69 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
           pathname: '/'
         })
       }
-
-      //
     }
   }
 
   const checkIfUserAlreadyExist = async () => {
-    const body = {
-      email: user.email
-    }
-    const settings = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-    const res = await fetch(
-      'http://localhost:3000/api/graphql/getUser',
-      settings
+    let isOk = false
+    const res = await getUserByEmail(
+      publicRuntimeConfig.AUTH0_BASE_URL,
+      user.email
     )
 
-    console.log(res)
-
-    if (res.status === 200) {
-      await updateUser()
-    } else if (res.status === 400) {
-      await createUser()
+    if (res === null) {
+      setAlertMsg('Server internal error1!! 🤯')
+      setShowAlert(true)
+      setTypeAlert('dander')
+    } else if (res === {}) {
+      const res = await createUser(
+        publicRuntimeConfig.AUTH0_BASE_URL,
+        user.email,
+        user.nickname,
+        user.picture
+      )
+      if (res === 200) {
+        isOk = true
+      } else {
+        setAlertMsg('Server internal error2!! 🤯')
+        setShowAlert(true)
+        setTypeAlert('dander')
+      }
     } else {
-      console.log('Hay algo jodido en la matrix')
-    }
-  }
+      console.log('Actualizo')
+      const res = await updateUser(
+        publicRuntimeConfig.AUTH0_BASE_URL,
+        user.email,
+        user.nickname,
+        user.picture
+      )
 
-  const createUser = async () => {
-    const body = {
-      email: user.email,
-      username: user.nickname,
-      image: user.picture
+      if (res === 200) {
+        isOk = true
+      } else {
+        setAlertMsg('Server internal error3!! 🤯')
+        setShowAlert(true)
+        setTypeAlert('dander')
+      }
     }
-    const settings = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-    const res = await fetch(
-      'http://localhost:3000/api/graphql/createUser',
-      settings
-    )
-    if (res.status === 200) {
+
+    if (isOk === true) {
       localStorage.setItem('userLoggedIn', JSON.stringify(true))
       localStorage.setItem('userEmail', JSON.stringify(user.email))
-      setUser(body)
+
+      setUser({
+        email: user.email,
+        username: user.nickname,
+        image: user.picture
+      })
       setUserLoggedIn(true)
       router.push({
         pathname: '/'
       })
-    } else {
-      setAlertMsg('Server internal error!! 🤯')
-      setShowAlert(true)
-      setTypeAlert('dander')
-    }
-  }
-
-  const updateUser = async () => {
-    const body = {
-      email: user.email,
-      username: user.nickname,
-      image: user.picture
-    }
-    const settings = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-    const res = await fetch(
-      'http://localhost:3000/api/graphql/updateUser',
-      settings
-    )
-    if (res.status === 200) {
-      console.log(user)
-      localStorage.setItem('userLoggedIn', JSON.stringify(true))
-      localStorage.setItem('userEmail', JSON.stringify(user.email))
-      setUser(body)
-      setUserLoggedIn(true)
-      router.push({
-        pathname: '/'
-      })
-    } else {
-      setAlertMsg('Server internal error!! 🤯')
-      setShowAlert(true)
-      setTypeAlert('dander')
     }
   }
 
   useEffect(() => {
-    console.log(user)
     if (user !== undefined || userLoggedIn === true) {
       checkIfUserAlreadyExist()
     }

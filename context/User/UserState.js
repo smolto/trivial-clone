@@ -3,7 +3,10 @@ import React, { useReducer } from 'react'
 import UserContext from './UserContext'
 import UserReducer from './UserReducer'
 
+import { useConfig } from '../../hooks/useConfig'
+
 const UserState = (props) => {
+  const publicRuntimeConfig = useConfig()
   const initialState = {
     user: {}
   }
@@ -15,7 +18,6 @@ const UserState = (props) => {
       const body = {
         email
       }
-
       const settings = {
         method: 'POST',
         headers: {
@@ -25,10 +27,9 @@ const UserState = (props) => {
         body: JSON.stringify(body)
       }
       const res = await fetch(
-        'http://localhost:3000/api/graphql/getUser',
+        `${publicRuntimeConfig.AUTH0_BASE_URL}/api/graphql/getUser`,
         settings
       )
-
       const response = await res.json()
       dispatch({ type: 'SET_USER', payload: response.data.queryUser[0] })
     } catch (error) {
@@ -38,6 +39,7 @@ const UserState = (props) => {
 
   const setUser = async (user) => {
     try {
+      console.log(user)
       dispatch({ type: 'SET_USER', payload: user })
     } catch (error) {
       console.error(error)

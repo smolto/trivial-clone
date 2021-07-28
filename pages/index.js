@@ -19,6 +19,8 @@ export default function Home ({ userLoggedIn, setUserLoggedIn }) {
     }
   }, [])
 
+  console.log(user)
+
   return (
     <CheckUserLogin userLoggedIn={userLoggedIn}>
       <Layout>
