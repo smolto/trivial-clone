@@ -1,3 +1,17 @@
 .content {
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
+
+.footer {
+    padding: 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
