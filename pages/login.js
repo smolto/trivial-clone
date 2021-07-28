@@ -86,7 +86,7 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
     )
 
     if (res === null) {
-      setAlertMsg('Server internal error1!! 🤯')
+      setAlertMsg('Server internal error!! 🤯')
       setShowAlert(true)
       setTypeAlert('dander')
     } else if (res === {}) {
@@ -99,7 +99,7 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
       if (res === 200) {
         isOk = true
       } else {
-        setAlertMsg('Server internal error2!! 🤯')
+        setAlertMsg('Server internal error!! 🤯')
         setShowAlert(true)
         setTypeAlert('dander')
       }
@@ -115,7 +115,7 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
       if (res === 200) {
         isOk = true
       } else {
-        setAlertMsg('Server internal error3!! 🤯')
+        setAlertMsg('Server internal error!! 🤯')
         setShowAlert(true)
         setTypeAlert('dander')
       }
