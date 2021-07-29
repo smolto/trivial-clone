@@ -1,4 +1,4 @@
-export default (state, action) => {
+export default function UserReducer (state, action) {
   const { payload, type } = action
 
   switch (type) {
