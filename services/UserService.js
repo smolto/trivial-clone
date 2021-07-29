@@ -30,7 +30,7 @@ export const getUserByEmail = async (_url, _email) => {
   } else if (res.status === 0) {
     return null
   } else {
-    return {}
+    return false
   }
 }
 
