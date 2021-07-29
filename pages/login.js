@@ -36,44 +36,88 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
     setShowAlert(false)
   }
 
+  const getUser = async (_email) => {
+    const res = await getUserByEmail(
+      publicRuntimeConfig.AUTH0_BASE_URL,
+      _email
+    )
+
+    console.log(res)
+
+    if (res === null) {
+      return null
+    } else if (res === false) {
+      return false
+    } else {
+      return res
+    }
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    const body = {
-      email: userEmail
-    }
+    console.log(isLogin)
 
     if (isLogin === true) {
-      const settings = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      }
-      const res = await fetch(
-        'http://localhost:3000/api/graphql/getUser',
-        settings
-      )
+      const res = await getUser(userEmail)
 
-      if (res.status === 400) {
+      if (res === null) {
+        setAlertMsg('Server internal error!! 🤯')
+        setShowAlert(true)
+        setTypeAlert('dander')
+      } else if (res === false) {
         setAlertMsg(`Invalid email! ${userEmail} does not exist 🤯`)
         setShowAlert(true)
         setTypeAlert('danger')
-      } else if (res.status === 200) {
+      } else {
         setAlertMsg('Perfect! User logged in successfully 😁')
         setShowAlert(true)
         setTypeAlert('success')
 
         localStorage.setItem('userLoggedIn', JSON.stringify(true))
         localStorage.setItem('userEmail', JSON.stringify(userEmail))
-        const response = await res.json()
-        setUser(response.data.queryUser[0])
+        setUser(res)
         setUserLoggedIn(true)
         router.push({
           pathname: '/'
         })
+      }
+    } else {
+      const res = await getUser(userEmail)
+
+      if (res === null) {
+        setAlertMsg('Server internal error!! 🤯')
+        setShowAlert(true)
+        setTypeAlert('dander')
+      } else if (res === false) {
+        const res = await createUser(
+          publicRuntimeConfig.AUTH0_BASE_URL,
+          userEmail,
+          username,
+          '/user-img.svg'
+        )
+        if (res === 200) {
+          localStorage.setItem('userLoggedIn', JSON.stringify(true))
+          localStorage.setItem('userEmail', JSON.stringify(userEmail))
+
+          setUser({
+            email: userEmail,
+            username: username,
+            image: '/user-img.svg'
+          })
+          setUserLoggedIn(true)
+          router.push({
+            pathname: '/'
+          })
+        } else {
+          setAlertMsg('Server internal error!! 🤯')
+          setShowAlert(true)
+          setTypeAlert('dander')
+        }
+      } else {
+        setAlertMsg(`Invalid email! ${userEmail} already exists 🤯`)
+        setShowAlert(true)
+        setTypeAlert('danger')
       }
     }
   }
@@ -89,7 +133,7 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
       setAlertMsg('Server internal error!! 🤯')
       setShowAlert(true)
       setTypeAlert('dander')
-    } else if (res === {}) {
+    } else if (res === false) {
       const res = await createUser(
         publicRuntimeConfig.AUTH0_BASE_URL,
         user.email,
@@ -188,6 +232,13 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
           </div>
           <div className="form-login">
             <form onSubmit={onSubmit}>
+              {showAlert === true
+                ? (
+                <div className={styles['form-login__item-alert']}>
+                  <Alert text={alertMsg} type={typeAlert} />
+                </div>
+                  )
+                : null}
               {isLogin === false
                 ? (
                 <div className={styles['form-login__item']}>
@@ -198,14 +249,6 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                </div>
-                  )
-                : null}
-
-              {showAlert === true
-                ? (
-                <div className={styles['form-login__item-alert']}>
-                  <Alert text={alertMsg} type={typeAlert} />
                 </div>
                   )
                 : null}
