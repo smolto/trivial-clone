@@ -5,7 +5,7 @@ import UserReducer from './UserReducer'
 
 import { useConfig } from '../../hooks/useConfig'
 
-const UserState = (props) => {
+export default function UserState (props) {
   const publicRuntimeConfig = useConfig()
   const initialState = {
     user: {}
@@ -39,7 +39,6 @@ const UserState = (props) => {
 
   const setUser = async (user) => {
     try {
-      console.log(user)
       dispatch({ type: 'SET_USER', payload: user })
     } catch (error) {
       console.error(error)
@@ -58,5 +57,3 @@ const UserState = (props) => {
     </UserContext.Provider>
   )
 }
-
-export default UserState

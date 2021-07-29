@@ -104,7 +104,6 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
         setTypeAlert('dander')
       }
     } else {
-      console.log('Actualizo')
       const res = await updateUser(
         publicRuntimeConfig.AUTH0_BASE_URL,
         user.email,
