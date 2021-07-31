@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  margin-bottom: 2.5rem;
 }
 
 a {
@@ -19,3 +20,4 @@ a {
   --primary-color: #000;
   --secondary-color: #fff;
 }
+

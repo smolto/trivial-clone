@@ -22,99 +22,84 @@
   margin: 0.5rem 0;
 }
 
-.form-title {
+.quiz-header {
+  background: #F1EEF5;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.2rem;
+  padding: 0.5rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.category-item {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   text-align: center;
-}
-
-.form-login__item {
-  margin-bottom: 1rem;
-}
-
-.form-login__item label{
-  font-weight: 900;
-}
-
-.auth0-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.type-form-selectors {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.span-selected {
-  padding: 0.3rem 0.5rem;
-  background: var(--primary-color);
-  color: var(--secondary-color);
+  border-radius: 1rem;
+  color: #fff;
   cursor: pointer;
+  transition: all;
+  transition-duration: .3s;
 }
 
-.span-not-selected {
-  padding: 0.3rem 0.5rem;
-  background: var(--secondary-color);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  cursor: pointer;
+.category-item span {
+  font-weight: 500;
+  font-size: 1.25rem;
 }
 
-.form-login__submit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.geography {
+  background-color: #5C89E7;
 }
 
-.form-login__submit button{
-  max-width: 50%;
+.geography:hover {
+  box-shadow: rgba(92, 137, 231, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.form-login__item-alert {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+.sports {
+  background-color: #FFA37E;
 }
 
-.login-button {
-  height: 3rem;
-  min-width: 50%;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  transition: background;
-  transition-duration: .25s;
-  font-size: 1.3rem;
+.sports:hover {
+  box-shadow: rgba(255, 163, 126, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.login-button:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);  
+.science {
+  background-color: #83D7BE;
 }
 
-.user-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+.science:hover {
+  box-shadow: rgba(131, 215, 190, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.user-info img {
-  width: 50px;
-  border-radius: 100px;
+.entertainment {
+  background-color: #FFADB7;
 }
 
-.logout-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.entertainment:hover {
+  box-shadow: rgba(255, 173, 183, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.logout-button img{
-  width: 30px;
+@media only screen and (min-width: 700px) {
+  .category-grid {
+    padding-top: 2rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quiz-header {
+    padding-left: 10rem;
+  }
 }
