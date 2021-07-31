@@ -42,8 +42,6 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
       _email
     )
 
-    console.log(res)
-
     if (res === null) {
       return null
     } else if (res === false) {
@@ -187,7 +185,9 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
   }, [user])
 
   return (
-    <Layout>
+    <Layout
+      title='Login'
+    >
       <header>
         <Toolbar>
           <div className={styles['quiz-title']}>

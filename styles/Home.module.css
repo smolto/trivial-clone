@@ -16,6 +16,10 @@
   align-items: center;
 }
 
+.quiz-title img{
+  cursor: pointer;
+}
+
 .quiz-title span{
   font-weight: 500;
   font-size: 1.2rem;

@@ -1,11 +1,11 @@
 import styles from './Layout.module.css'
 import Head from 'next/head'
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, title }) => {
   return (
     <>
       <Head>
-        <title>Hola</title>
+        <title>{title}</title>
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"

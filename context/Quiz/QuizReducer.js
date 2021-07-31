@@ -7,6 +7,11 @@ export default function QuizReducer (state, action) {
         ...state,
         category: payload
       }
+    case 'SET_QUESTIONS':
+      return {
+        ...state,
+        questions: payload
+      }
     default:
       return state
   }
