@@ -8,6 +8,7 @@ import styles from './../styles/Home.module.css'
 
 import { Layout } from '../components/Layout/Layout'
 import { Toolbar } from '../components/Toolbar/Toolbar'
+import { UserToolbar } from '../components/UserToolbar/UserToolbar'
 import { CheckUserLogin } from '../components/CheckUserLogIn/CheckUserLogin'
 
 import { getUserByEmail } from '../services/UserService'
@@ -57,22 +58,9 @@ export default function Home ({ userLoggedIn, setUserLoggedIn }) {
         title='Home'
       >
         <Toolbar>
-          <div className={styles['quiz-title']}>
-            <img src={user.image} alt="logo" height="60" />
-            <span>{user.username}</span>
-          </div>
-          <div
-            className={styles['quiz-title']}
-            onClick={() => {
-              localStorage.removeItem('userLoggedIn')
-              localStorage.removeItem('userEmail')
-              router.push({
-                pathname: '/api/auth/logout'
-              })
-            }}
-          >
-            <img src="/logout.svg" alt="logo" height="30" />
-          </div>
+          <UserToolbar
+            user={user}
+          />
         </Toolbar>
         <div className="content">
           <div className={styles['quiz-header']}>
