@@ -10,25 +10,52 @@ import { Layout } from '../components/Layout/Layout'
 import { Toolbar } from '../components/Toolbar/Toolbar'
 import { CheckUserLogin } from '../components/CheckUserLogIn/CheckUserLogin'
 
+import { getUserByEmail } from '../services/UserService'
+
+import { useConfig } from '../hooks/useConfig'
+
 export default function Home ({ userLoggedIn, setUserLoggedIn }) {
   const router = useRouter()
-  const { user, setUserByEmail } = useContext(UserContext)
-  const { setCategory } = useContext(QuizContext)
+  const { user, setUser } = useContext(UserContext)
+  const { category, questions, setCategory, setQuesions } = useContext(QuizContext)
+  const publicRuntimeConfig = useConfig()
 
   const selectCategory = (_category) => {
     setCategory(_category)
   }
 
   useEffect(() => {
+    if (questions.length > 0) {
+      console.log('Viajar a quiz')
+    }
+  }, [questions])
+
+  useEffect(() => {
+    if (category !== '') {
+      setQuesions()
+    }
+  }, [category])
+
+  useEffect(() => {
+    async function getUser (_email) {
+      const res = await getUserByEmail(
+        publicRuntimeConfig.AUTH0_BASE_URL,
+        _email
+      )
+
+      setUser(res)
+    }
     const email = JSON.parse(localStorage.getItem('userEmail'))
     if (email !== null) {
-      setUserByEmail(email)
+      getUser(email)
     }
   }, [])
 
   return (
     <CheckUserLogin userLoggedIn={userLoggedIn}>
-      <Layout>
+      <Layout
+        title='Home'
+      >
         <Toolbar>
           <div className={styles['quiz-title']}>
             <img src={user.image} alt="logo" height="60" />
