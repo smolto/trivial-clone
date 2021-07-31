@@ -1,7 +1,7 @@
 .toolbar {
   position: sticky;
   width: 100%;
-  padding: 7px 24px;
+  padding: 1rem;
   box-shadow: 0 2px 2px -2px gray;
   display: flex;
   justify-content: space-between;

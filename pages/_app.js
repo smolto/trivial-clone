@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { UserProvider } from '@auth0/nextjs-auth0'
 import UserState from '../context/User/UserState'
+import QuizState from '../context/Quiz/QuizState'
 
 import '../styles/global/globals.css'
 import '../styles/global/button.css'
@@ -22,13 +23,15 @@ function MyApp ({ Component, pageProps }) {
   }, [])
   return (
     <UserState>
-      <UserProvider>
-        <Component
-          {...pageProps}
-          userLoggedIn={userLoggedIn}
-          setUserLoggedIn={setUserLoggedIn}
-      />
-      </UserProvider>
+      <QuizState>
+        <UserProvider>
+          <Component
+            {...pageProps}
+            userLoggedIn={userLoggedIn}
+            setUserLoggedIn={setUserLoggedIn}
+          />
+        </UserProvider>
+      </QuizState>
     </UserState>
   )
 }
