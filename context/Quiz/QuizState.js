@@ -11,8 +11,10 @@ export default function QuizState (props) {
   const publicRuntimeConfig = useConfig()
   const initialState = {
     category: '',
+    selectCategoryAgain: true,
     questions: [],
-    answers: []
+    answers: [],
+    result: 0
   }
 
   const [state, dispatch] = useReducer(QuizReducer, initialState)
@@ -29,14 +31,36 @@ export default function QuizState (props) {
     }
   }
 
+  const setSelectCategoryAgain = (value) => {
+    dispatch({ type: 'SET_SELECT_CATEGORY_AGAIN', payload: value })
+  }
+
+  const addAnswer = (answer) => {
+    dispatch({ type: 'ADD_ANSWER', payload: answer })
+  }
+
+  const resetAnswers = () => {
+    dispatch({ type: 'RESET_ANSWER', payload: [] })
+  }
+
+  const setResult = (result) => {
+    dispatch({ type: 'SET_RESULT', payload: result })
+  }
+
   return (
     <UserContext.Provider
       value={{
         category: state.category,
         questions: state.questions,
         answers: state.answers,
+        selectCategoryAgain: state.selectCategoryAgain,
+        result: state.result,
         setCategory,
-        setQuesions
+        setQuesions,
+        setSelectCategoryAgain,
+        addAnswer,
+        resetAnswers,
+        setResult
       }}
     >
       {props.children}
