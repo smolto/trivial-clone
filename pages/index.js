@@ -15,21 +15,25 @@ import { getUserByEmail } from '../services/UserService'
 
 import { useConfig } from '../hooks/useConfig'
 
-export default function Home ({ userLoggedIn, setUserLoggedIn }) {
+export default function Home ({ userLoggedIn }) {
   const router = useRouter()
   const { user, setUser } = useContext(UserContext)
-  const { category, questions, setCategory, setQuesions } = useContext(QuizContext)
+  const { category, questions, setCategory, setQuesions, selectCategoryAgain, setSelectCategoryAgain, resetAnswers } = useContext(QuizContext)
   const publicRuntimeConfig = useConfig()
 
   const selectCategory = (_category) => {
     setCategory(_category)
+    setSelectCategoryAgain(false)
   }
 
   useEffect(() => {
-    if (questions.length > 0) {
-      console.log('Viajar a quiz')
+    if (questions.length > 0 && selectCategoryAgain === false) {
+      resetAnswers()
+      router.push({
+        pathname: '/game'
+      })
     }
-  }, [questions])
+  }, [questions, selectCategoryAgain])
 
   useEffect(() => {
     if (category !== '') {

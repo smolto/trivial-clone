@@ -12,6 +12,26 @@ export default function QuizReducer (state, action) {
         ...state,
         questions: payload
       }
+    case 'SET_SELECT_CATEGORY_AGAIN':
+      return {
+        ...state,
+        selectCategoryAgain: payload
+      }
+    case 'ADD_ANSWER':
+      return {
+        ...state,
+        answers: [...state.answers, payload]
+      }
+    case 'RESET_ANSWER':
+      return {
+        ...state,
+        answers: []
+      }
+    case 'SET_RESULT':
+      return {
+        ...state,
+        result: payload
+      }
     default:
       return state
   }

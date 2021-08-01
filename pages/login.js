@@ -54,8 +54,6 @@ export default function Login ({ userLoggedIn, setUserLoggedIn }) {
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    console.log(isLogin)
-
     if (isLogin === true) {
       const res = await getUser(userEmail)
 
