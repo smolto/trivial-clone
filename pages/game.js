@@ -30,7 +30,7 @@ export default function Game ({ userLoggedIn }) {
     if (!isFirst) {
       if (answers.length === 10) {
         setEndQuiz(true)
-        console.log('Llamo a calcular resultado')
+        alert(result)
         calculateResult()
       } else {
         setSelectedQuestion(questions[selectedQuestionNumber + 1])
@@ -42,8 +42,9 @@ export default function Game ({ userLoggedIn }) {
     }
   }, [answers])
 
-  const answerSelected = (_answer) => {
+  const answerSelected = (_answer, id) => {
     addAnswer(_answer)
+    _answer === selectedQuestion.correct ? setResult(result + 1) : setResult(result)
     setIsFirst(false)
   }
 
