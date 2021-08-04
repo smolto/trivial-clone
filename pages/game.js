@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 import UserContext from '../context/User/UserContext'
 import QuizContext from '../context/Quiz/QuizContext'
@@ -12,6 +13,7 @@ import { Question } from '../components/Question/Question'
 export default function Game ({ userLoggedIn }) {
   const { user } = useContext(UserContext)
   const { questions, setSelectCategoryAgain, addAnswer, answers, result, setResult } = useContext(QuizContext)
+  const router = useRouter()
 
   const [selectedQuestion, setSelectedQuestion] = useState(questions[0])
   const [selectedQuestionNumber, setSelectedQuestionNumber] = useState(0)
@@ -30,8 +32,9 @@ export default function Game ({ userLoggedIn }) {
     if (!isFirst) {
       if (answers.length === 10) {
         setEndQuiz(true)
-        alert(result)
-        calculateResult()
+        router.push({
+          pathname: '/result'
+        })
       } else {
         setSelectedQuestion(questions[selectedQuestionNumber + 1])
         setSelectedQuestionNumber(selectedQuestionNumber + 1)
@@ -46,16 +49,6 @@ export default function Game ({ userLoggedIn }) {
     addAnswer(_answer)
     _answer === selectedQuestion.correct ? setResult(result + 1) : setResult(result)
     setIsFirst(false)
-  }
-
-  const calculateResult = () => {
-    let _result = 0
-    answers.forEach((answer, index) => {
-      if (answer === questions[index].correct) {
-        _result++
-      }
-    })
-    setResult(_result)
   }
 
   return (

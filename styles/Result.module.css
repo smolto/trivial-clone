@@ -1,0 +1,39 @@
+.score-container {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.score-content {
+  text-align: center;
+  margin: 1rem;
+  padding: 2rem;
+  max-width: 70%;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  border-radius: 1rem;
+}
+
+.score-first-title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.score-second-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.user-score-label {
+  font-size: 1.2rem;
+  text-decoration: bold;
+  font-weight: 500;
+}
+
+.user-score-obtained {
+  font-size: 2.3rem;
+}
+
+.user-correct-answers {
+  font-size: 2.1rem;
+  color: #3880ff;
+}
