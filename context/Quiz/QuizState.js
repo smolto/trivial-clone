@@ -14,7 +14,9 @@ export default function QuizState (props) {
     selectCategoryAgain: true,
     questions: [],
     answers: [],
-    result: 0
+    result: 0,
+    startDate: null,
+    endDate: null
   }
 
   const [state, dispatch] = useReducer(QuizReducer, initialState)
@@ -47,6 +49,14 @@ export default function QuizState (props) {
     dispatch({ type: 'SET_RESULT', payload: result })
   }
 
+  const setStartDate = (start) => {
+    dispatch({ type: 'SET_START_DATE', payload: start })
+  }
+
+  const setEndDate = (end) => {
+    dispatch({ type: 'SET_END_DATE', payload: end })
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -55,12 +65,16 @@ export default function QuizState (props) {
         answers: state.answers,
         selectCategoryAgain: state.selectCategoryAgain,
         result: state.result,
+        startDate: state.startDate,
+        endDate: state.endDate,
         setCategory,
         setQuesions,
         setSelectCategoryAgain,
         addAnswer,
         resetAnswers,
-        setResult
+        setResult,
+        setStartDate,
+        setEndDate
       }}
     >
       {props.children}

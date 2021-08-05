@@ -12,6 +12,7 @@
     "@apollo/client": "^3.3.21",
     "@auth0/nextjs-auth0": "^1.4.2",
     "graphql": "^15.5.1",
+    "moment": "^2.29.1",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"

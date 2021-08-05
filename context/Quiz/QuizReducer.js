@@ -32,6 +32,16 @@ export default function QuizReducer (state, action) {
         ...state,
         result: payload
       }
+    case 'SET_START_DATE':
+      return {
+        ...state,
+        startDate: payload
+      }
+    case 'SET_END_DATE':
+      return {
+        ...state,
+        endDate: payload
+      }
     default:
       return state
   }
