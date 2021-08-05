@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import moment from 'moment'
 
 import styles from './../styles/Result.module.css'
 
@@ -12,8 +13,12 @@ import { CheckUserLogin } from '../components/CheckUserLogIn/CheckUserLogin'
 
 export default function Game ({ userLoggedIn }) {
   const { user } = useContext(UserContext)
-  const { result, questions } = useContext(QuizContext)
+  const { result, questions, startDate, endDate } = useContext(QuizContext)
 
+  console.log(startDate)
+  console.log(endDate)
+
+  console.log()
   return (
     <CheckUserLogin userLoggedIn={userLoggedIn}>
       <Layout title="Home">
@@ -31,7 +36,7 @@ export default function Game ({ userLoggedIn }) {
               <p className={styles['user-score-obtained']}>
                 <span className={styles['user-correct-answers']}>{result}</span> / {questions.length}
               </p>
-              <p>Duration: </p>
+              <p>Duration: {moment.utc(moment(endDate, 'DD/MM/YYYY HH:mm:ss').diff(moment(startDate, 'DD/MM/YYYY HH:mm:ss'))).format('HH:mm:ss')}</p>
             </div>
           </div>
         </div>

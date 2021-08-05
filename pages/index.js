@@ -12,13 +12,14 @@ import { UserToolbar } from '../components/UserToolbar/UserToolbar'
 import { CheckUserLogin } from '../components/CheckUserLogIn/CheckUserLogin'
 
 import { getUserByEmail } from '../services/UserService'
+import { getCurrentDate } from '../services/date'
 
 import { useConfig } from '../hooks/useConfig'
 
 export default function Home ({ userLoggedIn }) {
   const router = useRouter()
   const { user, setUser } = useContext(UserContext)
-  const { category, questions, setCategory, setQuesions, selectCategoryAgain, setSelectCategoryAgain, resetAnswers } = useContext(QuizContext)
+  const { category, questions, setCategory, setQuesions, selectCategoryAgain, setSelectCategoryAgain, resetAnswers, setStartDate } = useContext(QuizContext)
   const publicRuntimeConfig = useConfig()
 
   const selectCategory = (_category) => {
@@ -29,6 +30,7 @@ export default function Home ({ userLoggedIn }) {
   useEffect(() => {
     if (questions.length > 0 && selectCategoryAgain === false) {
       resetAnswers()
+      setStartDate(getCurrentDate())
       router.push({
         pathname: '/game'
       })
