@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useRouter } from 'next/router'
 import moment from 'moment'
 
 import styles from './../styles/Result.module.css'
@@ -12,6 +13,7 @@ import { UserToolbar } from '../components/UserToolbar/UserToolbar'
 import { CheckUserLogin } from '../components/CheckUserLogIn/CheckUserLogin'
 
 export default function Game ({ userLoggedIn }) {
+  const router = useRouter()
   const { user } = useContext(UserContext)
   const { result, questions, startDate, endDate } = useContext(QuizContext)
 
@@ -34,9 +36,31 @@ export default function Game ({ userLoggedIn }) {
             <div className={styles['user-score']}>
               <p className={styles['user-score-label']}>Your score:</p>
               <p className={styles['user-score-obtained']}>
-                <span className={styles['user-correct-answers']}>{result}</span> / {questions.length}
+                <span className={styles['user-correct-answers']}>{result}</span>{' '}
+                / {questions.length}
               </p>
-              <p>Duration: {moment.utc(moment(endDate, 'DD/MM/YYYY HH:mm:ss').diff(moment(startDate, 'DD/MM/YYYY HH:mm:ss'))).format('HH:mm:ss')}</p>
+              <p>
+                Duration:{' '}
+                {moment
+                  .utc(
+                    moment(endDate, 'DD/MM/YYYY HH:mm:ss').diff(
+                      moment(startDate, 'DD/MM/YYYY HH:mm:ss')
+                    )
+                  )
+                  .format('HH:mm:ss')}
+              </p>
+            </div>
+            <div className={styles['next-btn-container']}>
+              <button
+                className="btn btn_primary"
+                onClick={() =>
+                  router.push({
+                    pathname: '/'
+                  })
+                }
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
