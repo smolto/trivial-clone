@@ -8,13 +8,22 @@ import { Layout } from '../components/Layout/Layout'
 import { Toolbar } from '../components/Toolbar/Toolbar'
 import { UserToolbar } from '../components/UserToolbar/UserToolbar'
 import { CheckUserLogin } from '../components/CheckUserLogIn/CheckUserLogin'
+import { CheckUserSet } from '../components/CheckUserSet/CheckUserSet'
 import { Question } from '../components/Question/Question'
 
 import { getCurrentDate } from '../services/date'
 
 export default function Game ({ userLoggedIn }) {
   const { user } = useContext(UserContext)
-  const { questions, setSelectCategoryAgain, addAnswer, answers, result, setResult, setEndDate } = useContext(QuizContext)
+  const {
+    questions,
+    setSelectCategoryAgain,
+    addAnswer,
+    answers,
+    result,
+    setResult,
+    setEndDate
+  } = useContext(QuizContext)
   const router = useRouter()
 
   const [selectedQuestion, setSelectedQuestion] = useState(questions[0])
@@ -48,29 +57,38 @@ export default function Game ({ userLoggedIn }) {
     }
   }, [answers])
 
+  useEffect(() => {
+    if (selectedQuestion === undefined) {
+      router.push('/')
+    }
+  }, [user])
+
   const answerSelected = (_answer, id) => {
     addAnswer(_answer)
-    _answer === selectedQuestion.correct ? setResult(result + 1) : setResult(result)
+    _answer === selectedQuestion.correct
+      ? setResult(result + 1)
+      : setResult(result)
     setIsFirst(false)
   }
 
   return (
     <CheckUserLogin userLoggedIn={userLoggedIn}>
-      <Layout title="Home">
-        <Toolbar>
-          <UserToolbar user={user} />
-        </Toolbar>
-        {
-          selectedQuestion !== undefined
-            ? <Question
-                question={selectedQuestion}
-                questionNumber={selectedQuestionNumber}
-                action={answerSelected}
-              />
-            : null
-        }
-
-      </Layout>
+      <CheckUserSet>
+        <Layout title="Home">
+          <Toolbar>
+            <UserToolbar user={user} />
+          </Toolbar>
+          {selectedQuestion !== undefined
+            ? (
+            <Question
+              question={selectedQuestion}
+              questionNumber={selectedQuestionNumber}
+              action={answerSelected}
+            />
+              )
+            : null}
+        </Layout>
+      </CheckUserSet>
     </CheckUserLogin>
   )
 }
