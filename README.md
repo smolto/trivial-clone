@@ -1,18 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project that is a trivial 'clone'.
+# Trivial clone
 
-## Getting Started
+This project was created using Next.js Framework.
 
-First, run the development server:
+It is a clone of trivial where a user has 4 different categories to choose and each one has 10 different questions. At the end of the questionnaire the user gets their final score.
 
-```bash
-npm run dev
-```
+## Web
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Login Page
 
-## External tools
+![login-page](./images/login.png)
 
-### Dgraph
+---
 
-### Auth0
+### Categories Page
 
+![categories-page](./images/categories.png)
+
+---
+
+### Question Page
+
+![question-page](./images/question.png)
+
+---
+
+### Score Page
+
+![question-page](./images/score.png)
+
+## Start the project
+
+### `npm install`
+
+To install the project.
+
+### `npm run dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+
+## Configure the project
+
+If you configure a .env file (just copy .env over to '.env.local' and fill in the options).
